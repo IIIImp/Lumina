@@ -5,21 +5,15 @@ project(LuminaEngine VERSION 0.1.0 LANGUAGES C CXX DESCRIPTION "Lumina Engine")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Custom CMake modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CompilerFlags)
-# include(Dependencies)
-# include(FindDirectX)
-# include(FindVulkan)
 
-# set ouput directory
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_OUTPUT_DIR})
+# Core Source Code(Module)
+add_subdirectory(src/rhi)
 
-include_directories(${PROJECT_SOURCE_DIR}/src)
-
-# Core Source Code
-add_subdirectory(src)
+# Main
+add_executable(RHITest samples/RHITest/main.cpp)
+target_link_libraries(RHITest PRIVATE RHIModule)
